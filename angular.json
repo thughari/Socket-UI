@@ -17,7 +17,8 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "src/polyfills-global.ts"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -67,7 +68,8 @@
               "buildTarget": "Socket-UI:build:production"
             },
             "development": {
-              "buildTarget": "Socket-UI:build:development"
+              "buildTarget": "Socket-UI:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
