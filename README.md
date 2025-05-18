@@ -1,27 +1,73 @@
 # SocketUI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+SocketUI is a real-time chat application built with Angular. It demonstrates the use of WebSockets for instant messaging, providing a responsive and interactive user experience.
 
-## Development server
+> **Note:** SocketUI does **not** store any messages on the server. All chat messages are saved only in your browser's local storage and will be deleted if you clear the chat.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+- Real-time messaging using WebSockets
+- Modern Angular UI
+- Responsive design
+- Messages stored only in local storage (not on the server)
+- Easy to set up and run locally
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Screenshots
 
-## Build
+Here are some sample screenshots of SocketUI:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+| Chat Window | Responsive Design |
+|-------------|------------------|
+| ![Chat Window](screenshots/chat-window.png) | ![Responsive Design](screenshots/responsive.png) |
 
-## Running unit tests
+## Live Demo
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Check out the live demo: [https://thughari.github.io/Socket-UI/](https://thughari.github.io/Socket-UI/)
 
-## Running end-to-end tests
+## Related Repositories
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Frontend (this repo):** [https://github.com/thughari/Socket-UI](https://github.com/thughari/Socket-UI)
+- **Backend:** [https://github.com/thughari/chat](https://github.com/thughari/chat)
 
-## Further help
+## Getting Started
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Prerequisites
+
+- [Node.js](https://nodejs.org/)
+- [Angular CLI](https://angular.dev/tools/cli)
+
+### Installation
+
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/thughari/Socket-UI.git
+    cd Socket-UI
+    ```
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+
+### Development Server
+
+Run the development server:
+```bash
+ng serve
+```
+Navigate to `http://localhost:4200/`. The app will automatically reload if you change any source files.
+
+### Building the Project
+
+To build the project for production:
+```bash
+ng build
+```
+The build artifacts will be stored in the `dist/` directory.
+
+## Contributing
+
+Contributions are welcome! Please open issues or submit pull requests for improvements.
+
+## License
+
+This project is licensed under the MIT License.

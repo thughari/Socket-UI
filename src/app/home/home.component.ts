@@ -8,7 +8,7 @@ interface ChatMessage {
   sender: string;
   content: string;
   type: 'CHAT' | 'JOIN' | 'LEAVE';
-  usersOnline?: number; // Optional, as it's only present in some messages
+  usersOnline?: number;
 }
 
 @Component({
@@ -25,8 +25,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewChecked {
   showUsernamePage = true;
   showChatPage = false;
   username: string | null = null;
-  inputUsername = ''; // For the username input field
-  newMessageContent = ''; // For the message input field
+  inputUsername = '';
+  newMessageContent = '';
 
   stompClient: Client | null = null;
   connectingMessage = 'Connecting...';
@@ -60,14 +60,14 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewChecked {
       // Send LEAVE message
       if (this.username) {
         this.stompClient.publish({
-          destination: '/app/chat.removeUser', // Assuming this is the endpoint for removing user
+          destination: '/app/chat.removeUser',
           body: JSON.stringify({ sender: this.username, type: 'LEAVE' })
         });
       }
       this.stompClient.deactivate();
       console.log('Disconnected from WebSocket.');
     }
-    // Clear local storage on component destroy (optional, depends on desired behavior)
+    // Clear local storage on component destroy (optional)
     // localStorage.removeItem('chatMessages');
   }
 
@@ -81,10 +81,8 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.connectingMessage = 'Connecting...';
       this.connectionError = null;
 
-      // Note: SockJS URL should be absolute. If your Angular app and backend are on different ports during dev,
       // you might need a proxy configuration (proxy.conf.json) or ensure CORS is handled on the backend.
-      // For simplicity, assuming backend is at localhost:8080.
-      const socketFactory = () => new SockJS('http://localhost:8080/ws');
+      const socketFactory = () => new SockJS('https://chat-app-y4sz.onrender.com/ws');
 
       this.stompClient = new Client({
         webSocketFactory: socketFactory,
@@ -115,7 +113,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private onConnected(): void {
     console.log('Connected to WebSocket!');
-    this.connectingMessage = ''; // Or 'Connected!' or hide it
+    this.connectingMessage = '';
 
     if (this.stompClient && this.username) {
       // Subscribe to the Public Topic
@@ -133,9 +131,9 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private onError(errorDetails: string): void {
     this.connectionError = `Could not connect to WebSocket server. ${errorDetails}. Please refresh this page to try again!`;
-    this.connectingMessage = ''; // Clear connecting message
+    this.connectingMessage = '';
     console.error(errorDetails);
-    // Optionally, revert to username page or show a persistent error
+
     // this.showChatPage = false;
     // this.showUsernamePage = true;
   }
@@ -167,17 +165,16 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.updateOnlineUsers(message.usersOnline);
     }
 
-    let displayMessage = { ...message }; // Clone to avoid modifying original if needed
+    let displayMessage = { ...message };
 
     if (message.type === 'JOIN') {
       displayMessage.content = message.sender + ' joined!';
     } else if (message.type === 'LEAVE') {
       displayMessage.content = message.sender + ' left!';
     }
-    // For CHAT type, content is already set
 
     this.messages.push(displayMessage);
-    this.saveMessageToLocalStorage(displayMessage); // Save the processed message for display
+    this.saveMessageToLocalStorage(displayMessage);
     this.scrollToBottomNeeded = true;
   }
 
@@ -215,7 +212,7 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   getAvatarColor(messageSender: string): string {
-    if (!messageSender) return '#ccc'; // Default color if sender is undefined
+    if (!messageSender) return '#ccc';
     let hash = 0;
     for (let i = 0; i < messageSender.length; i++) {
       hash = 31 * hash + messageSender.charCodeAt(i);
@@ -227,7 +224,6 @@ export class HomeComponent implements OnInit, OnDestroy, AfterViewChecked {
   clearChat(): void {
     localStorage.removeItem('chatMessages');
     this.messages = [];
-    // Optionally, notify server or other users, though typically clear chat is a local action
   }
 
   private scrollToBottom(): void {

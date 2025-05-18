@@ -40,14 +40,12 @@
           }">
 
         <ng-container *ngIf="message.type === 'CHAT'">
-          <!-- Avatar and Username for RECEIVED messages only -->
           <ng-container *ngIf="message.sender !== username">
             <i class="avatar" [style.background-color]="getAvatarColor(message.sender)">
               {{ message.sender ? message.sender[0] : '?' }}
             </i>
             <span class="username-display">{{ message.sender }}</span>
           </ng-container>
-          <!-- Message content (for both sent and received) -->
           <p>{{ message.content }}</p>
         </ng-container>
 
